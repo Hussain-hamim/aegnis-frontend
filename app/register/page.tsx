@@ -25,6 +25,7 @@ import {
 import Link from 'next/link';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import GoogleLoginButton from '@/components/GoogleLoginButton';
 
 export default function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -123,6 +124,19 @@ export default function RegisterPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className='space-y-6'>
+            <GoogleLoginButton />
+
+            <div className='relative'>
+              <div className='absolute inset-0 flex items-center'>
+                <span className='w-full border-t border-white/20' />
+              </div>
+              <div className='relative flex justify-center text-xs uppercase'>
+                <span className='bg-[#0A0A1A] px-2 text-gray-400'>
+                  Or Try Registering
+                </span>
+              </div>
+            </div>
+
             <form onSubmit={handleSubmit} className='space-y-4'>
               {(error || validationError) && (
                 <div className='bg-red-500/20 text-red-300 p-3 rounded-lg flex items-center gap-2 border border-red-500/30'>

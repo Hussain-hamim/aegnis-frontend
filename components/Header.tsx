@@ -9,12 +9,14 @@ import {
   X,
   User,
   LogOut,
-  Dashboard,
   Settings,
   Bell,
+  Eye,
+  LayoutDashboard,
 } from 'lucide-react';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function Header() {
   const { user, logout, isAuthenticated } = useAuthContext();
@@ -27,7 +29,7 @@ export default function Header() {
     setIsMobileMenuOpen(false);
   };
 
-  const handleNavigation = (path) => {
+  const handleNavigation = (path: any) => {
     router.push(path);
     setIsMobileMenuOpen(false);
   };
@@ -61,35 +63,33 @@ export default function Header() {
                   Dashboard
                 </Link>
                 <Link
-                  href='/profile'
+                  href='/aegnisai'
                   className='text-gray-300 hover:text-white transition-colors'
                 >
-                  Profile
-                </Link>
-                <Link
-                  href='/settings'
-                  className='text-gray-300 hover:text-white transition-colors'
-                >
-                  Settings
+                  Aegnis AI
                 </Link>
 
                 <div className='flex items-center space-x-4'>
-                  <Button
-                    variant='ghost'
-                    size='icon'
-                    className='text-gray-300 hover:text-white hover:bg-white/10'
-                  >
-                    <Bell className='w-5 h-5' />
-                  </Button>
-
-                  <div className='flex items-center space-x-2'>
-                    <div className='w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center'>
-                      <User className='w-4 h-4 text-white' />
+                  <Link href={'/profile'}>
+                    <div className='flex items-center space-x-2'>
+                      <div className='w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center'>
+                        {user?.avatar ? (
+                          <Image
+                            width={50}
+                            height={50}
+                            className='rounded-full'
+                            alt={user?.username}
+                            src={user.avatar}
+                          />
+                        ) : (
+                          <User className='w-5 h-5 text-white' />
+                        )}
+                      </div>
+                      <span className='text-gray-300 text-sm'>
+                        {user?.username}
+                      </span>
                     </div>
-                    <span className='text-gray-300 text-sm'>
-                      {user?.username}
-                    </span>
-                  </div>
+                  </Link>
 
                   <Button
                     variant='ghost'
@@ -165,38 +165,43 @@ export default function Header() {
           <div className='md:hidden glass-card border-white/10 mt-4 rounded-lg p-4 backdrop-blur-sm'>
             {isAuthenticated ? (
               <div className='space-y-4'>
-                <div className='flex items-center space-x-3 pb-4 border-b border-white/10'>
-                  <div className='w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center'>
-                    <User className='w-5 h-5 text-white' />
+                <Link
+                  href={'/profile'}
+                  className='flex items-center space-x-3 pb-4 border-b border-white/10'
+                >
+                  <div className='w-10 h-10  rounded-full flex items-center justify-center'>
+                    {user?.avatar ? (
+                      <Image
+                        width={50}
+                        height={50}
+                        className='rounded-full'
+                        alt={user?.username}
+                        src={user.avatar}
+                      />
+                    ) : (
+                      <User className='w-5 h-5 text-white' />
+                    )}
                   </div>
                   <div>
                     <p className='text-white font-medium'>{user?.username}</p>
                     <p className='text-gray-400 text-sm'>{user?.email}</p>
                   </div>
-                </div>
+                </Link>
 
                 <button
                   onClick={() => handleNavigation('/dashboard')}
                   className='w-full flex items-center space-x-3 p-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors'
                 >
-                  <Dashboard className='w-5 h-5' />
+                  <LayoutDashboard className='w-5 h-5' />
                   <span>Dashboard</span>
                 </button>
 
                 <button
-                  onClick={() => handleNavigation('/profile')}
+                  onClick={() => handleNavigation('/aegnisai')}
                   className='w-full flex items-center space-x-3 p-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors'
                 >
-                  <User className='w-5 h-5' />
-                  <span>Profile</span>
-                </button>
-
-                <button
-                  onClick={() => handleNavigation('/settings')}
-                  className='w-full flex items-center space-x-3 p-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors'
-                >
-                  <Settings className='w-5 h-5' />
-                  <span>Settings</span>
+                  <Brain className='w-5 h-5' />
+                  <span>Aegnis AI</span>
                 </button>
 
                 <button
