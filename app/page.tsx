@@ -27,9 +27,12 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
+import { useAuthContext } from '@/contexts/AuthContext';
+import Header from '@/components/Header';
 
 export default function HomePage() {
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const { user, logout } = useAuthContext();
 
   useEffect(() => {
     observerRef.current = new IntersectionObserver(
@@ -51,73 +54,7 @@ export default function HomePage() {
 
   return (
     <div className='min-h-screen night-sky-bg'>
-      <nav className='glass-nav sticky top-2 z-50 mx-4'>
-        <div className='max-w-7xl mx-auto px-6'>
-          <div className='flex justify-between items-center h-16'>
-            <div className='flex items-center space-x-2'>
-              <div className='w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center animate-pulse-glow'>
-                <Link
-                  href='/'
-                  className='text-gray-300 hover:text-white transition-colors'
-                >
-                  <Brain className='w-5 h-5 text-white' />
-                </Link>
-              </div>
-              <Link
-                href='/'
-                className='text-gray-300 hover:text-white transition-colors'
-              >
-                <span className='text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent'>
-                  Aegnis
-                </span>
-              </Link>
-            </div>
-            <div className='hidden md:flex items-center space-x-8'>
-              <Link
-                href='/dashboard'
-                className='text-gray-300 hover:text-white transition-colors'
-              >
-                Dashboard
-              </Link>
-              <Link
-                href='#features'
-                className='text-gray-300 hover:text-white transition-colors'
-              >
-                Features
-              </Link>
-              <Link
-                href='#testimonials'
-                className='text-gray-300 hover:text-white transition-colors'
-              >
-                Testimonials
-              </Link>
-              <Link
-                href='#demo'
-                className='text-gray-300 hover:text-white transition-colors'
-              >
-                Demo
-              </Link>
-              <Link href='/login'>
-                <Button
-                  variant='outline'
-                  size='sm'
-                  className='border-white/20 text-white hover:bg-white/10 bg-transparent backdrop-blur-sm'
-                >
-                  Log In
-                </Button>
-              </Link>
-              <Link href='/register'>
-                <Button
-                  size='sm'
-                  className='bg-white text-gray-900 hover:bg-gray-100 font-medium'
-                >
-                  Sign Up
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Header />
 
       <section className='relative overflow-hidden py-20 lg:py-32'>
         <div className='relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
