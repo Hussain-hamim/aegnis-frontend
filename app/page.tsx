@@ -56,13 +56,29 @@ export default function HomePage() {
           <div className='flex justify-between items-center h-16'>
             <div className='flex items-center space-x-2'>
               <div className='w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center animate-pulse-glow'>
-                <Brain className='w-5 h-5 text-white' />
+                <Link
+                  href='/'
+                  className='text-gray-300 hover:text-white transition-colors'
+                >
+                  <Brain className='w-5 h-5 text-white' />
+                </Link>
               </div>
-              <span className='text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent'>
-                Aegnis
-              </span>
+              <Link
+                href='/'
+                className='text-gray-300 hover:text-white transition-colors'
+              >
+                <span className='text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent'>
+                  Aegnis
+                </span>
+              </Link>
             </div>
             <div className='hidden md:flex items-center space-x-8'>
+              <Link
+                href='/dashboard'
+                className='text-gray-300 hover:text-white transition-colors'
+              >
+                Dashboard
+              </Link>
               <Link
                 href='#features'
                 className='text-gray-300 hover:text-white transition-colors'
@@ -90,7 +106,7 @@ export default function HomePage() {
                   Log In
                 </Button>
               </Link>
-              <Link href='/login'>
+              <Link href='/register'>
                 <Button
                   size='sm'
                   className='bg-white text-gray-900 hover:bg-gray-100 font-medium'

@@ -1,23 +1,34 @@
-import type React from "react"
-import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
-import "./globals.css"
+'use client';
 
-export const metadata: Metadata = {
-  title: "Aegnis - Your AI Chief of Staff",
-  description: "From a to-do list to a done list. Aegnis manages your digital life so you can focus on what matters.",
-  generator: "v0.app",
-}
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState } from 'react';
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+const inter = Inter({ subsets: ['latin'] });
+
+export default function RootLayout({ children }) {
+  // Create QueryClient instance inside the client component
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 5 * 60 * 1000, // 5 minutes
+            retry: 1,
+          },
+        },
+      })
+  );
+
   return (
-    <html lang="en" className="dark">
-      <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable} antialiased`}>{children}</body>
+    <html lang='en'>
+      <body className={inter.className}>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>{children}</AuthProvider>
+        </QueryClientProvider>
+      </body>
     </html>
-  )
+  );
 }
